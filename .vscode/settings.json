@@ -1,0 +1,56 @@
+{
+    "python.defaultInterpreterPath": "./.venv/Scripts/python.exe",
+    "python.terminal.activateEnvironment": true,
+    "python.linting.enabled": true,
+    "python.linting.flake8Enabled": true,
+    "python.linting.mypyEnabled": true,
+    "python.linting.pylintEnabled": false,
+    "python.formatting.provider": "black",
+    "python.sortImports.args": [
+        "--profile",
+        "black"
+    ],
+    "python.testing.pytestEnabled": true,
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestArgs": [
+        "tests"
+    ],
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": true
+    },
+    "files.exclude": {
+        "**/__pycache__": true,
+        "**/*.pyc": true,
+        "**/.pytest_cache": true,
+        "**/.mypy_cache": true,
+        "**/dist": true,
+        "**/build": true,
+        "**/*.egg-info": true,
+        "**/.venv": false
+    },
+    "search.exclude": {
+        "**/__pycache__": true,
+        "**/*.pyc": true,
+        "**/.pytest_cache": true,
+        "**/.mypy_cache": true,
+        "**/dist": true,
+        "**/build": true,
+        "**/*.egg-info": true
+    },
+    "python.analysis.extraPaths": [
+        "./src"
+    ],
+    "python.analysis.autoImportCompletions": true,
+    "python.analysis.typeCheckingMode": "basic",
+    "autoDocstring.docstringFormat": "google",
+    "autoDocstring.startOnNewLine": false,
+    "files.associations": {
+        "*.toml": "toml",
+        "*.yaml": "yaml",
+        "*.yml": "yaml"
+    },
+    "git.ignoreLimitWarning": true,
+    "jupyter.askForKernelRestart": false,
+    "jupyter.interactiveWindow.creationMode": "perFile"
+}

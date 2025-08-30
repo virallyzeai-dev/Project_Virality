@@ -1,0 +1,27 @@
+{
+    "recommendations": [
+        "ms-python.python",
+        "ms-python.vscode-pylance",
+        "ms-python.black-formatter",
+        "ms-python.isort",
+        "ms-python.flake8",
+        "ms-python.mypy-type-checker",
+        "ms-toolsai.jupyter",
+        "charliermarsh.ruff",
+        "ms-vscode.test-adapter-converter",
+        "littlefoxteam.vscode-python-test-adapter",
+        "github.vscode-github-actions",
+        "ms-vscode.vscode-json",
+        "redhat.vscode-yaml",
+        "tamasfe.even-better-toml",
+        "ms-vscode-remote.remote-containers",
+        "ms-azuretools.vscode-docker",
+        "eamodio.gitlens",
+        "github.copilot",
+        "github.copilot-chat",
+        "ms-python.debugpy",
+        "ms-vscode.live-server",
+        "humao.rest-client",
+        "ms-vscode.vscode-thunder-client"
+    ]
+}

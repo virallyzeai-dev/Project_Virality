@@ -1,0 +1,327 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Install Dependencies",
+            "type": "shell",
+            "command": "poetry",
+            "args": [
+                "install"
+            ],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Run Tests",
+            "type": "shell",
+            "command": "poetry",
+            "args": [
+                "run",
+                "pytest",
+                "tests/",
+                "-v"
+            ],
+            "group": "test",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Run Tests with Coverage",
+            "type": "shell",
+            "command": "poetry",
+            "args": [
+                "run",
+                "pytest",
+                "tests/",
+                "-v",
+                "--cov=src/virality_analyzer",
+                "--cov-report=html",
+                "--cov-report=term"
+            ],
+            "group": "test",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Lint Code",
+            "type": "shell",
+            "command": "poetry",
+            "args": [
+                "run",
+                "flake8",
+                "src/",
+                "tests/"
+            ],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": [
+                {
+                    "owner": "flake8",
+                    "fileLocation": "absolute",
+                    "pattern": {
+                        "regexp": "^(.*):(\\d+):(\\d+):\\s+(\\w+)\\s+(.*)$",
+                        "file": 1,
+                        "line": 2,
+                        "column": 3,
+                        "severity": 4,
+                        "message": 5
+                    }
+                }
+            ]
+        },
+        {
+            "label": "Format Code",
+            "type": "shell",
+            "command": "poetry",
+            "args": [
+                "run",
+                "black",
+                "src/",
+                "tests/",
+                "examples/"
+            ],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Type Check",
+            "type": "shell",
+            "command": "poetry",
+            "args": [
+                "run",
+                "mypy",
+                "src/"
+            ],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": [
+                {
+                    "owner": "mypy",
+                    "fileLocation": "absolute",
+                    "pattern": {
+                        "regexp": "^(.*):(\\d+):(\\d+):\\s+(error|warning|note):\\s+(.*)$",
+                        "file": 1,
+                        "line": 2,
+                        "column": 3,
+                        "severity": 4,
+                        "message": 5
+                    }
+                }
+            ]
+        },
+        {
+            "label": "Run FastAPI Server",
+            "type": "shell",
+            "command": "poetry",
+            "args": [
+                "run",
+                "uvicorn",
+                "virality_analyzer.api.endpoints:app",
+                "--reload",
+                "--host",
+                "0.0.0.0",
+                "--port",
+                "8000"
+            ],
+            "group": "build",
+            "isBackground": true,
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": [
+                {
+                    "pattern": [
+                        {
+                            "regexp": ".",
+                            "file": 1,
+                            "location": 2,
+                            "message": 3
+                        }
+                    ],
+                    "background": {
+                        "activeOnStart": true,
+                        "beginsPattern": ".",
+                        "endsPattern": "Uvicorn running on"
+                    }
+                }
+            ]
+        },
+        {
+            "label": "Run Streamlit App",
+            "type": "shell",
+            "command": "poetry",
+            "args": [
+                "run",
+                "streamlit",
+                "run",
+                "src/virality_analyzer/api/app.py"
+            ],
+            "group": "build",
+            "isBackground": true,
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Build Package",
+            "type": "shell",
+            "command": "poetry",
+            "args": [
+                "build"
+            ],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Run Basic Example",
+            "type": "shell",
+            "command": "poetry",
+            "args": [
+                "run",
+                "python",
+                "examples/basic_usage.py"
+            ],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Run Advanced Example",
+            "type": "shell",
+            "command": "poetry",
+            "args": [
+                "run",
+                "python",
+                "examples/advanced_analysis.py"
+            ],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Security Check",
+            "type": "shell",
+            "command": "poetry",
+            "args": [
+                "run",
+                "safety",
+                "check"
+            ],
+            "group": "test",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Docker Build",
+            "type": "shell",
+            "command": "docker",
+            "args": [
+                "build",
+                "-t",
+                "virality-analyzer",
+                "."
+            ],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Docker Compose Up",
+            "type": "shell",
+            "command": "docker-compose",
+            "args": [
+                "up",
+                "-d"
+            ],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Docker Compose Down",
+            "type": "shell",
+            "command": "docker-compose",
+            "args": [
+                "down"
+            ],
+            "group": "build",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared"
+            },
+            "problemMatcher": []
+        }
+    ]
+}

@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+  virality-analyzer:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - ENVIRONMENT=production
+    volumes:
+      - ./data:/app/data
+      - ./models:/app/models
+    depends_on:
+      - redis
+      - postgres
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes
+    volumes:
+      - redis_data:/data
+
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: virality_analyzer
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-password}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  streamlit:
+    build: .
+    command: streamlit run src/virality_analyzer/api/app.py --server.port=8501 --server.address=0.0.0.0
+    ports:
+      - "8501:8501"
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+    depends_on:
+      - virality-analyzer
+      - redis
+      - postgres
+
+volumes:
+  redis_data:
+  postgres_data:
