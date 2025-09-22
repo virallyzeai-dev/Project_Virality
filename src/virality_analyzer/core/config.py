@@ -1,43 +1,44 @@
 """Core configuration and settings for the Virality Analyzer."""
 
-import os
-from typing import Dict, Any, Optional
-from pydantic import BaseSettings, Field
+from typing import Optional
+
+from pydantic import Field
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
     """Application settings."""
-    
+
+    model_config = SettingsConfigDict(
+        env_file=".env", env_file_encoding="utf-8", extra="ignore"
+    )
+
     # API Keys
-    openai_api_key: Optional[str] = Field(None, env="OPENAI_API_KEY")
-    twitter_api_key: Optional[str] = Field(None, env="TWITTER_API_KEY")
-    twitter_api_secret: Optional[str] = Field(None, env="TWITTER_API_SECRET")
-    instagram_access_token: Optional[str] = Field(None, env="INSTAGRAM_ACCESS_TOKEN")
-    youtube_api_key: Optional[str] = Field(None, env="YOUTUBE_API_KEY")
-    
+    openai_api_key: Optional[str] = Field(default=None)
+    twitter_api_key: Optional[str] = Field(default=None)
+    twitter_api_secret: Optional[str] = Field(default=None)
+    instagram_access_token: Optional[str] = Field(default=None)
+    youtube_api_key: Optional[str] = Field(default=None)
+
     # Model Configuration
-    virality_threshold: float = Field(2.0, env="VIRALITY_THRESHOLD")
-    model_type: str = Field("xgboost", env="MODEL_TYPE")
-    feature_extraction_batch_size: int = Field(32, env="FEATURE_EXTRACTION_BATCH_SIZE")
-    
+    virality_threshold: float = Field(default=2.0)
+    model_type: str = Field(default="xgboost")
+    feature_extraction_batch_size: int = Field(default=32)
+
     # Database
-    database_url: str = Field("sqlite:///virality_data.db", env="DATABASE_URL")
-    
+    database_url: str = Field(default="sqlite:///virality_data.db")
+
     # Logging
-    log_level: str = Field("INFO", env="LOG_LEVEL")
-    
+    log_level: str = Field(default="INFO")
+
     # Feature Extraction
-    use_gpu: bool = Field(False, env="USE_GPU")
-    max_text_length: int = Field(512, env="MAX_TEXT_LENGTH")
-    image_size: int = Field(224, env="IMAGE_SIZE")
-    
+    use_gpu: bool = Field(default=False)
+    max_text_length: int = Field(default=512)
+    image_size: int = Field(default=224)
+
     # Benchmarking
-    viral_content_db_path: str = Field("data/viral_benchmark.faiss", env="VIRAL_CONTENT_DB_PATH")
-    similarity_threshold: float = Field(0.8, env="SIMILARITY_THRESHOLD")
-    
-    class Config:
-        env_file = ".env"
-        env_file_encoding = "utf-8"
+    viral_content_db_path: str = Field(default="data/viral_benchmark.faiss")
+    similarity_threshold: float = Field(default=0.8)
 
 
 # Global settings instance
@@ -46,41 +47,41 @@ settings = Settings()
 
 class ModelConfig:
     """Configuration for different model types."""
-    
+
     XGBOOST_PARAMS = {
         "max_depth": 6,
         "learning_rate": 0.1,
         "n_estimators": 100,
         "subsample": 0.8,
         "colsample_bytree": 0.8,
-        "random_state": 42
+        "random_state": 42,
     }
-    
+
     CATBOOST_PARAMS = {
         "iterations": 100,
         "learning_rate": 0.1,
         "depth": 6,
         "l2_leaf_reg": 3,
         "random_seed": 42,
-        "verbose": False
+        "verbose": False,
     }
-    
+
     NEURAL_NET_PARAMS = {
         "hidden_layers": [256, 128, 64],
         "dropout_rate": 0.3,
         "learning_rate": 0.001,
         "batch_size": 32,
         "epochs": 100,
-        "early_stopping_patience": 10
+        "early_stopping_patience": 10,
     }
 
 
 class FeatureConfig:
     """Configuration for feature extraction."""
-    
+
     TEXT_FEATURES = [
         "sentiment_polarity",
-        "sentiment_subjectivity", 
+        "sentiment_subjectivity",
         "emotional_intensity",
         "readability_score",
         "text_length",
@@ -89,9 +90,9 @@ class FeatureConfig:
         "hashtag_count",
         "mention_count",
         "url_count",
-        "emoji_count"
+        "emoji_count",
     ]
-    
+
     VISUAL_FEATURES = [
         "brightness",
         "contrast",
@@ -100,20 +101,20 @@ class FeatureConfig:
         "face_count",
         "object_count",
         "visual_complexity",
-        "aesthetic_score"
+        "aesthetic_score",
     ]
-    
+
     ENGAGEMENT_FEATURES = [
         "likes_per_impression",
-        "shares_per_impression", 
+        "shares_per_impression",
         "comments_per_impression",
         "click_through_rate",
         "watch_time_avg",
         "completion_rate",
         "save_rate",
-        "virality_coefficient"
+        "virality_coefficient",
     ]
-    
+
     PLATFORM_FEATURES = [
         "posting_hour",
         "posting_day_of_week",
@@ -121,5 +122,5 @@ class FeatureConfig:
         "trending_topic_alignment",
         "follower_count",
         "account_age",
-        "previous_viral_count"
+        "previous_viral_count",
     ]
