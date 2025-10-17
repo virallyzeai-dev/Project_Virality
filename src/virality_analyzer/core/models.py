@@ -8,6 +8,7 @@ from enum import Enum
 
 class ContentType(Enum):
     """Types of content that can be analyzed."""
+
     TEXT = "text"
     IMAGE = "image"
     VIDEO = "video"
@@ -16,6 +17,7 @@ class ContentType(Enum):
 
 class Platform(Enum):
     """Social media platforms."""
+
     TWITTER = "twitter"
     INSTAGRAM = "instagram"
     YOUTUBE = "youtube"
@@ -28,6 +30,7 @@ class Platform(Enum):
 @dataclass
 class ContentMetrics:
     """Raw metrics for a piece of content."""
+
     likes: int = 0
     shares: int = 0
     comments: int = 0
@@ -44,6 +47,7 @@ class ContentMetrics:
 @dataclass
 class ContentData:
     """Complete content data for analysis."""
+
     content_id: str
     text: Optional[str] = None
     image_url: Optional[str] = None
@@ -60,6 +64,7 @@ class ContentData:
 @dataclass
 class FeatureVector:
     """Extracted features for ML models."""
+
     text_features: Dict[str, float] = field(default_factory=dict)
     visual_features: Dict[str, float] = field(default_factory=dict)
     engagement_features: Dict[str, float] = field(default_factory=dict)
@@ -70,6 +75,7 @@ class FeatureVector:
 @dataclass
 class PredictionResult:
     """Result of virality prediction."""
+
     content_id: str
     virality_score: float
     is_viral_prediction: bool
@@ -80,6 +86,7 @@ class PredictionResult:
 @dataclass
 class ExplanationResult:
     """Explanation of why content is/isn't viral."""
+
     content_id: str
     explanation_text: str
     key_factors: List[str]
@@ -90,6 +97,7 @@ class ExplanationResult:
 @dataclass
 class CausalEffect:
     """Result of causal analysis."""
+
     factor: str
     effect_size: float
     p_value: float
@@ -100,6 +108,7 @@ class CausalEffect:
 @dataclass
 class CausalAnalysisResult:
     """Complete causal analysis result."""
+
     content_id: str
     causal_effects: List[CausalEffect]
     treatment_effects: Dict[str, float] = field(default_factory=dict)
@@ -109,6 +118,7 @@ class CausalAnalysisResult:
 @dataclass
 class BenchmarkResult:
     """Result of benchmarking against viral content."""
+
     content_id: str
     similarity_score: float
     top_similar_viral_content: List[str]
@@ -119,6 +129,7 @@ class BenchmarkResult:
 @dataclass
 class DiagnosticReport:
     """Complete diagnostic report for content."""
+
     content_id: str
     virality_prediction: PredictionResult
     explanation: ExplanationResult
@@ -129,6 +140,7 @@ class DiagnosticReport:
 
 class AnalysisStatus(Enum):
     """Status of content analysis."""
+
     PENDING = "pending"
     IN_PROGRESS = "in_progress"
     COMPLETED = "completed"
@@ -138,6 +150,7 @@ class AnalysisStatus(Enum):
 @dataclass
 class AnalysisJob:
     """Represents an analysis job."""
+
     job_id: str
     content_data: ContentData
     status: AnalysisStatus = AnalysisStatus.PENDING
@@ -150,6 +163,7 @@ class AnalysisJob:
 @dataclass
 class ModelPerformance:
     """Model performance metrics."""
+
     accuracy: float
     precision: float
     recall: float
@@ -162,6 +176,7 @@ class ModelPerformance:
 @dataclass
 class TrainingResult:
     """Result of model training."""
+
     model_type: str
     performance: ModelPerformance
     model_path: str

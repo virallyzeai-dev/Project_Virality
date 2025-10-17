@@ -65,12 +65,12 @@ class CausalAnalyzer:
             row.update(feature_vector.platform_features)
 
             # Add outcome variable
-            row["virality_coefficient"] = (
-                self.feature_processor.engagement_extractor.metrics_calculator.calculate_virality_coefficient(
-                    content_data.metrics.shares,
-                    content_data.metrics.unique_users_reached
-                    or content_data.metrics.impressions,
-                )
+            row[
+                "virality_coefficient"
+            ] = self.feature_processor.engagement_extractor.metrics_calculator.calculate_virality_coefficient(
+                content_data.metrics.shares,
+                content_data.metrics.unique_users_reached
+                or content_data.metrics.impressions,
             )
             row["is_viral"] = (
                 1 if row["virality_coefficient"] >= self.virality_threshold else 0

@@ -4,9 +4,4 @@ from .predictive import ViralityPredictor, FeatureProcessor
 from .causal import CausalAnalyzer
 from .explainer import ModelExplainer
 
-__all__ = [
-    "ViralityPredictor",
-    "FeatureProcessor",
-    "CausalAnalyzer", 
-    "ModelExplainer"
-]
+__all__ = ["ViralityPredictor", "FeatureProcessor", "CausalAnalyzer", "ModelExplainer"]
